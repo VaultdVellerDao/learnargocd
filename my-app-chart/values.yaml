@@ -15,8 +15,13 @@ serviceAccount:
   annotations: {}
   name: ""
 
-podAnnotations: {}
-podLabels: {}
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "5000"
+  prometheus.io/path: "/metrics"
+
+podLabels:
+
 
 podSecurityContext: {}
 
@@ -66,3 +71,10 @@ volumeMounts: []
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+monitoring:
+  enabled: true
+  prometheus:
+    scrape: true
+    port: 5000
+    path: /metrics

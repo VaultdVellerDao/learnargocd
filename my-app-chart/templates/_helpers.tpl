@@ -60,3 +60,13 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Monitoring labels
+*/}}
+{{- define "my-app-chart.monitoring-labels" -}}
+{{- if .Values.monitoring.enabled }}
+prometheus: enabled
+monitoring: "true"
+{{- end }}
+{{- end }}

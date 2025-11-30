@@ -18,7 +18,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        {{- include "my-app-chart.selectorLabels" . | nindent 8 }}
         {{- include "my-app-chart.labels" . | nindent 8 }}
+        {{- if .Values.monitoring.enabled }}
+        prometheus: enabled
+        monitoring: "true"
+        {{- end }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
