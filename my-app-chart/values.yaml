@@ -15,26 +15,21 @@ serviceAccount:
   annotations: {}
   name: ""
 
-podAnnotations:
-  prometheus.io/scrape: "true"
-  prometheus.io/port: "8080"
-  prometheus.io/path: "/metrics"
-
+podAnnotations: {}
 podLabels: {}
-
 podSecurityContext: {}
-
 securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8000
+  port: 80
   targetPort: 80
 
 ingress:
   enabled: true
   className: "nginx"
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
     - host: my-app.local
       paths:
@@ -60,9 +55,6 @@ readinessProbe:
 
 autoscaling:
   enabled: false
-  minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
 
 volumes: []
 volumeMounts: []
@@ -70,10 +62,3 @@ volumeMounts: []
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
-monitoring:
-  enabled: true
-  prometheus:
-    scrape: true
-    port: 80
-    path: /metrics
